@@ -1,8 +1,11 @@
 from mysql import connector
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 def polaczenie():
     return connector.connect(

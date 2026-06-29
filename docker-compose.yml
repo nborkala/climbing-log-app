@@ -1,34 +1,35 @@
-version: "3.9"
-
 services:
   db:
     image: mysql:8
-    container_name: mysql_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: app_dziennik_wsp
-    ports:
-      - "3307:3306"
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=app_dziennik_wsp
     volumes:
       - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   backend:
     build: ./backend
-    container_name: fastapi_backend
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
-      DB_HOST: db
-      DB_USER: root
-      DB_PASSWORD: root
-      DB_NAME: app_dziennik_wsp
-  
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=app_dziennik_wsp
+
   frontend:
     build: ./frontend
-    container_name: react_frontend
     ports:
       - "5173:5173"
     depends_on:
