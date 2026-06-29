@@ -1,96 +1,72 @@
-🧗‍♂️ Climbing Log App
-"As an active rock climber, I often struggled to find a single, dedicated place to track my training progress and keep a personal log of my ascents. I built this application to solve my own real-world problem—combining a digital climbing diary with practical outdoor tools."
+# 🧗‍♂️ Climbing Log App
 
-A fullstack web application designed for rock climbers to log, manage, and track their climbing ascents. The application allows users to record new entries, select specific crags and sectors, log ascent styles (OS, RP, Flash), rate routes, check local weather forecasts, and view their personal training statistics.  
-SQL
-+ 1
+> *"As an active rock climber, I often struggled to find a single, dedicated place to track my training progress and keep a personal log of my ascents. I built this application to solve my own real-world problem—combining a digital climbing diary with practical outdoor tools."*
 
-🛠️ Tech Stack
-Frontend: React, Vite, CSS  
-SQL
+A fullstack web application designed for rock climbers to log, manage, and analyze their climbing ascents. 
 
-Backend: Python, FastAPI, Uvicorn  
-SQL
 
-Database: MySQL 8 (via mysql-connector-python)  
-SQL
+<img width="1789" height="819" alt="app-look" src="https://github.com/user-attachments/assets/035304e7-ed07-482b-a8e9-65103e84d417" />
 
-DevOps: Docker, Docker Compose  
-SQL
 
-📌 Features Overview
-Interactive Logbook & CRUD: Easily add, edit, and delete personal climbing records with dynamic crag and sector filtering.  
-SQL
 
-Weather Integration: Real-time local weather forecast widget for selected climbing areas to help plan outdoor trips.  
-SQL
+---
 
-Live Climbing News Feed: A dedicated sidebar on the left displays the latest articles from wspinanie.pl. Clicking on any news card opens the full, original article in a new browser tab.  
-SQL
-+ 1
+## 📌 Key Features
 
-Training Statistics: Automated calculations of total meters climbed, favorite rock types, and ascent style distributions.  
-SQL
+* **Interactive Logbook:** Record personal ascents with instant crag and sector filtering.
+* **Full CRUD Operations:** Easily add, edit, and delete logged climbing routes.
+* **Live Climbing News:** A dedicated left-hand sidebar fetches the latest articles from **wspinanie.pl**. Clicking any news card opens the original article in a new browser tab.
+* **Outdoor Weather Widget:** Check real-time local forecasts for selected climbing areas before heading out to the crag.
+* **Training Analytics:** Automated stats tracking total climbed meters, favorite rock types, and ascent style distributions (OS, RP, Flash).
 
-💾 Database Architecture
-The relational database (app_dziennik_wsp) is normalized and divided into distinct entities to efficiently handle complex climbing data:  
-SQL
+---
 
-lokalizacje (Locations): Stores main climbing regions and rock types (e.g., Limestone, Granite).  
-SQL
+## 🛠️ Tech Stack
 
-sektory (Sectors): Sub-areas linked directly to specific locations.  
-SQL
+* **Frontend:** React, Vite, Modern CSS
+* **Backend:** Python 3.11, FastAPI, Uvicorn
+* **Database:** MySQL 8 (via `mysql-connector-python`)
+* **DevOps:** Docker, Docker Compose
 
-drogi (Routes): Individual climbing routes containing grades, lengths, and sector relationships.  
-SQL
+---
 
-uzytkownicy (Users): Authentication profiles.  
-SQL
+## 💾 Database Architecture
 
-przejscia (Ascents): Core log book linking users to routes along with style, attempts, date, rating, and personal notes.  
-SQL
+The relational database (`app_dziennik_wsp`) is fully normalized into 5 core entities:
 
-🚀 Quickstart (One-Command Setup)
-The entire project is fully containerized. You do not need Python, Node.js, or MySQL installed locally on your host machine—only Docker and Docker Desktop running.  
-SQL
-+ 1
+* **`uzytkownicy`** – stores user authentication profiles.
+* **`lokalizacje`** – defines main climbing regions and rock types (e.g., Limestone, Granite).
+* **`sektory`** – specific sub-areas linked directly to their parent crag.
+* **`drogi`** – individual climbing routes containing grade, length, and sector relations.
+* **`przejscia`** – the central logbook joining users with routes, recording style, attempts, date, rating (1–5), and personal notes.
 
-1. Clone the repository
-Bash
-git clone https://github.com/nborkala/climbing-log-app.git
-cd climbing-log-app
-2. Run the application
-Bash
-docker compose up --build
-(Note: On the very first run, MySQL needs around 15–20 seconds to initialize the database schema and import sample data from init.sql. The backend container will automatically wait for the database healthcheck before starting).  
-SQL
+---
 
-3. Access the application
-Web Application (Frontend): http://localhost:5173
+## 🚀 Quickstart (One-Command Setup)
 
-  
-SQL
+The application is strictly containerized. You only need **Docker** running on your host machine—no local Python, Node.js, or MySQL installation required.
 
-API Documentation (Swagger UI): http://localhost:8000/docs
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/nborkala/climbing-log-app.git](https://github.com/nborkala/climbing-log-app.git)
+   cd climbing-log-app
+2. **Start the environment:**
+   ```bash
+   docker compose up --build
+Important Note: On the very first run, MySQL requires ~15–20 seconds to initialize the schema and seed sample data from init.sql. The backend container will automatically hold and wait for the database healthcheck before booting up.
 
-  
-SQL
+Open in your browser:
+Web App: http://localhost:5173
+API Docs (Swagger UI): http://localhost:8000/docs🔑 
 
-🔑 Test Accounts
-To explore the application without registering, use either of the pre-seeded test accounts:  
-SQL
+## Test Accounts
+The database is automatically seeded with sample test users for instant verification:
+| Role / Account | Username (`login`) | Password (`haslo`) |
+| :--- | :--- | :--- |
+| **Test User 1** | `Wspinacz_Testowy` | `haslo123` |
+| **Test User 2** | `Janusz_Skala` | `haslo123` |
 
-User	Username (login)	Password (haslo)
-Test User 1	Wspinacz_Testowy	haslo123
-Test User 2	Janusz_Skala	haslo123
-(An additional third account Mocna_Kasia / haslo321 is also available in the database).  
-SQL
-
-🗺️ Roadmap & Future Development
-[ ] Internationalization (i18n): The application interface is currently available in Polish (tailored to Polish climbing grades and local crags). An English language toggle switch will be implemented in future updates.  
-SQL
-
-[ ] Adding custom user profile avatars.
-
-[ ] Advanced graph filtering for seasonal progress tracking.
+## 🗺️ Roadmap & Future Development
+ - The interface is currently in Polish (optimized for the Polish grading scale and local crags like Jura). An English language toggle and other climbig grades are planned for future releases.
+ - Custom user profile avatars and signing up.
+ - Advanced graph filtering for seasonal progress tracking.
