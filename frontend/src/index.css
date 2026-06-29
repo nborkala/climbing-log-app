@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: rgb(208, 211, 218);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}

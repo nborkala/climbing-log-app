@@ -1,0 +1,654 @@
+/* Import czcionki z projektu wizualnego */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap');
+
+:root {
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --accent-color: #3b82f6;
+  --accent-gradient: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  --text-main: #f8fafc;
+  --text-dim: #94a3b8;
+  --danger: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+
+/* --- GŁÓWNY UKŁAD (TERAZ 3 KOLUMNY) --- */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  max-width: 1400px; /* Zwiększone z 1200px, by pomieścić 3 kolumny */
+  margin: 0 auto;
+  padding: 20px 20px;
+}
+
+/* Kiedy ekran jest bardzo szeroki (komputery), ustawiamy 3 kolumny */
+@media (min-width: 1200px) {
+  .app-layout {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  
+  .news-sidebar {
+    flex: 0 0 300px; /* Lewa kolumna z Newsami: 300px */
+    max-width: 300px;
+  }
+  
+  .main-content {
+    flex: 1; /* Środkowa kolumna (Dziennik): Wypełnia resztę miejsca */
+  }
+  
+  .weather-sidebar {
+    flex: 0 0 350px; /* Prawa kolumna (Pogoda): 350px */
+    max-width: 350px;
+  }
+}
+
+/* --- ZMODYFIKOWANY PANEL POGODOWY --- */
+.weather-sidebar {
+  width: 100%;
+  max-width: 350px;
+  background: #1e293b; 
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.05);
+  position: sticky; 
+  top: 20px; 
+  
+  /* NOWE ZASADY: Ograniczenie wysokości i suwak */
+  max-height: calc(100vh - 60px); /* Widżet zajmie max 100% ekranu minus 40px zapasu (góra/dół) */
+  overflow-y: auto; /* Włącza pionowy suwak, jeśli treść wychodzi poza okno */
+}
+
+/* --- STYLIZACJA SUWAKA W PANELU POGODOWYM --- */
+.weather-sidebar::-webkit-scrollbar {
+  width: 8px; /* Cienki, nowoczesny suwak */
+}
+
+.weather-sidebar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2); /* Lekko przyciemnione tło ścieżki */
+  border-radius: 10px;
+  margin-block: 15px; /* Odsuwa suwak lekko od górnej i dolnej krawędzi */
+}
+
+.weather-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15); /* Półprzezroczysty, szary uchwyt */
+  border-radius: 10px;
+}
+
+.weather-sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3); /* Rozjaśnia się po najechaniu myszką */
+}
+
+.weather-header {
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.weather-search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.weather-search input {
+  margin-bottom: 0; 
+  padding: 10px 14px;
+}
+
+.weather-search button {
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.weather-search button:hover {
+  transform: translateY(-2px);
+}
+
+.weather-info {
+  text-align: center;
+  background: #0f172a;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #334155;
+}
+
+.weather-icon {
+  font-size: 4rem;
+  margin: 10px 0;
+}
+
+.weather-temp {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.weather-desc {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.weather-details {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #334155;
+  padding-top: 15px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  background: var(--accent-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Sekcja Formularza */
+.form-card {
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  margin-bottom: 50px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.form-card h2 {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  text-transform: uppercase;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.row {
+  display: flex;
+  gap: 15px;
+}
+
+input {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 14px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Przyciski */
+.btn-submit {
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 10px;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+}
+
+.btn-cancel {
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid #334155;
+  padding: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Lista przejść */
+.list-header {
+  margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.route-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 6px solid var(--accent-color);
+  transition: transform 0.3s ease;
+}
+
+.route-card:hover {
+  transform: scale(1.02);
+  background: #243147;
+}
+
+.route-main-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.grade-tag {
+  background: var(--accent-color);
+  color: white;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  margin-right: 12px;
+}
+
+.route-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.style-info {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.edit-icon {
+  cursor: pointer;
+  font-size: 1.3rem;
+  background: none;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.btn-delete {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-delete:hover {
+  background: var(--danger);
+  color: white;
+}
+
+
+select.input-select {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  background-color: #0f172a; 
+  border: 1px solid #334155;
+  border-radius: 10px;
+  color: white;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  
+  
+  appearance: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 18px;
+  
+  transition: all 0.3s ease;
+}
+
+
+select.input-select:hover {
+  border-color: #475569; 
+  background-color: #162238; 
+}
+
+
+select.input-select:focus {
+  outline: none;
+  border-color: var(--primary-color, #3b82f6); 
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); 
+}
+
+
+select.input-select option {
+  background-color: #1e293b; 
+  color: #f8fafc;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+/* --- HISTORIA POGODY --- */
+.historical-weather {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.history-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 10px;
+  flex: 1;
+  text-align: center;
+  font-size: 0.85rem;
+  transition: 0.2s;
+}
+
+.history-card:hover {
+  background: #243147;
+}
+
+.history-card .date {
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  font-weight: 800;
+}
+
+.history-card .icon {
+  font-size: 1.5rem;
+  margin: 5px 0;
+}
+
+.history-card .temp {
+  font-weight: bold;
+  color: var(--text-main);
+}
+
+/* --- INTERAKCJE POGODY --- */
+.weather-info, .history-card {
+  cursor: pointer; /* Zmienia kursor na łapkę */
+  transition: all 0.2s ease;
+}
+
+.weather-info:hover {
+  background: #162238; /* Lekkie podświetlenie głównego panelu po najechaniu */
+  border-color: #475569;
+}
+
+/* --- WIDOK SZCZEGÓŁOWY --- */
+.weather-details-view {
+  background: #0f172a;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #334155;
+  text-align: center;
+}
+
+.btn-back {
+  background: transparent;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+  margin-bottom: 20px;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-back:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.detail-item {
+  background: #1e293b;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.detail-item strong {
+  display: block;
+  color: var(--text-main);
+  font-size: 1.1rem;
+  margin-top: 5px;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px); /* Zaczyna lekko poniżej */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Wraca na swoje miejsce */
+  }
+}
+
+.animate-view {
+  animation: fadeSlideIn 0.3s ease-out forwards;
+}
+
+/* --- ALGORYTM WARUNU (PASEK) --- */
+.warun-container {
+  margin-top: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.warun-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.warun-bar-bg {
+  height: 10px;
+  background: #334155;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.warun-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1), background-color 1s ease;
+}
+
+/* --- UZASADNIENIE WARUNKU --- */
+.warun-reasons {
+  margin-top: 10px;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-align: left;
+}
+
+.warun-reasons ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+
+.warun-reasons li {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.2;
+}
+
+.warun-reasons li::before {
+  content: "🔹";
+  font-size: 0.6rem;
+}
+
+/* --- AUTOCOMPLETE (PODPOWIEDZI MIAST) --- */
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  margin-top: 8px;
+  z-index: 100;
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.suggestion-item {
+  padding: 12px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.2s;
+  text-align: left;
+}
+
+.suggestion-item:hover {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-details {
+  color: #94a3b8;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
+/* --- STYLIZACJA PANELU NEWSÓW --- */
+.news-sidebar {
+  background: #0f172a;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.05);
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+/* Suwak dla panelu newsów (taki sam jak w pogodzie) */
+.news-sidebar::-webkit-scrollbar { width: 8px; }
+.news-sidebar::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 10px; margin-block: 15px; }
+.news-sidebar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
+.news-sidebar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
+
+/* Karta pojedynczego artykułu */
+.news-item {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #334155;
+  transition: all 0.2s ease;
+}
+
+.news-item:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.4);
+  transform: translateY(-3px); /* Karta lekko unosi się po najechaniu */
+}
+
+.news-thumb {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.news-title {
+  color: #f8fafc;
+  font-weight: bold;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-bottom: 5px;
+}
+
+.news-date {
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
